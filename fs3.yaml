@@ -1,3 +1,7 @@
+Resources:
+  WaitCondition:
+    Type: AWS::CloudFormation::WaitCondition
+    
 Parameters:
   BucketName:
     Type: String
