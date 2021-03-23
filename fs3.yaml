@@ -1,7 +1,3 @@
-Resources:
-  WaitCondition:
-    Type: AWS::CloudFormation::WaitCondition
-    
 Parameters:
   BucketName:
     Type: String
@@ -15,9 +11,12 @@ Resources:
       BucketName: !Ref BucketName
       AccessControl: PublicRead
       WebsiteConfiguration:
-              IndexDocument: index.html
-              ErrorDocument: error.html
-
+         IndexDocument: index.html
+         ErrorDocument: error.html
+  
+  WaitCondition:
+    Type: AWS::CloudFormation::WaitCondition
+    
   # Configure the bucket as a CloudFront Origin
   ReadPolicy:
     Type: 'AWS::S3::BucketPolicy'
