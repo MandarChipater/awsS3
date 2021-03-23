@@ -39,9 +39,10 @@ Resources:
     Properties:
       DistributionConfig:
         CustomErrorResponses:
-          - ErrorCode: 403 # not found
-            ResponseCode: 404
-            ResponsePagePath: error.html
+        - ErrorCode: '404'
+          ResponsePagePath: "/error-pages/404.html"
+          ResponseCode: '200'
+          ErrorCachingMinTTL: '30'
         DefaultCacheBehavior:
           AllowedMethods:
             - GET
