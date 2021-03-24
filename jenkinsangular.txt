@@ -1,0 +1,28 @@
+pipeline {
+  agent any
+
+  stages {
+      
+      stage('Build') {
+          steps {
+              sh 'ng new hello-coditas-angular'
+          }
+      }
+      
+      stage('Deploy') {
+          steps{
+              dir("hello-coditas-angular") {
+                  sh 'pwd'
+                  sh 'ls'
+                  sh 'ng serve'
+              }
+          }
+      }
+  }
+  post {
+      always {
+          cleanWs()
+      }
+  }
+}
+          

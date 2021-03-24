@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+   
+  stages {
+      stage('Build') {
+          steps {
+              sh 'npx create-react-app hello-coditas-react'
+          }
+      }
+      stage('Deploy') {
+          steps {
+              dir("hello-coditas-react") {
+                  sh 'pwd'
+                  sh 'ls -a'
+                  sh 'npm start'
+              }
+          }
+      }
+  } 
+  post {
+      always {
+          cleanWs()
+      }
+  }
+}

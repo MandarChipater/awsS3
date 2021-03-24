@@ -1,0 +1,33 @@
+pipeline {
+    
+     agent any
+     
+     environment { 
+         SERVICE_CREDS = credentials('d8b2a989-f8cd-44fc-95ec-a3095c262f86') 
+            }
+            stages{
+                stage('Build') {
+                    steps {
+                        sh 'git clone https://github.com/MandarChipater/awsS3.git'
+                        sh 'aws s3 ls'
+                        sh 'cd awsS3'
+                        sh 'ls -a'
+                        sh 'aws cloudformation validate-template --region ap-south-1 --template-body file://./awsS3/fs3.yaml'
+                        sh 'aws cloudformation create-stack --region ap-south-1 --stack-name jenkinstack --template-body file://./awsS3/fs3.yaml --disable-rollback'
+                    }
+                }
+                stage('Deploy') {
+                    steps{
+                        sleep(time:100,unit:"SECONDS")
+                        sh 'aws s3 cp ./awsS3/index.html s3://amend-trial'
+                        sh 'aws s3 cp ./awsS3/error.html s3://amend-trial'
+                    }
+                }
+            }
+               
+                post {
+                    always {
+                        cleanWs()
+                    }
+                }
+}

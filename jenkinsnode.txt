@@ -1,0 +1,26 @@
+pipeline {
+  agent any
+    
+  tools {nodejs "Node"}
+    
+  stages {
+      stage('Git') {
+          steps {
+              sh 'git clone https://github.com/MandarChipater/awsS3.git'
+          }
+      }
+      stage('Build') {
+          steps{
+              sh 'npm install'
+              sh 'node -v'
+              sh 'npm -v'
+              sh 'node ./awsS3/nodehello.js'
+          }
+      }
+  }
+   post {
+       always {
+           cleanWs()
+       }
+   }
+}
