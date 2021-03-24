@@ -9,11 +9,7 @@ Resources:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: !Ref BucketName
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-         IndexDocument: index.html
-         ErrorDocument: error.html
-    
+          
   # Configure the bucket as a CloudFront Origin
   ReadPolicy:
     Type: 'AWS::S3::BucketPolicy'
